@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;700&display=swap');
+
+body {
+    background-color: #f1f9f2 !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+h1, h2, h3 ,p, h4, .description, .humidity, .wind {
+    font-family: 'Poppins', sans-serif !important;
+}
+h4 {
+    color: #193921 !important;
+    font-weight: normal !important
+}
+
+.desc {
+    color: rgb(173, 13, 13) !important;
+}
+
+.btn {
+    background-color: rgb(173, 13, 13) !important;
+    width: 100%;
+    color: white !important;
+}
+.cardCountry {
+    width: 600px !important;
+    height: 240px !important
+
+}
+
+
+.sc-logo{
+    margin-top: 10px;
+    display: block;
+    width: 90px;
+    height: 45px;
+    color: whitesmoke;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    font-style: oblique;
+    line-height: 40px !important;
+    /* border: 2px solid whitesmoke;
+    border-radius: 100%; */
+}
+
+.secondary.pointing.menu .toc.item {
+    display: none !important;  /* to Hide icon */
+}
+
+.fixedBar {
+    background-color: #193921 !important;
+    padding-right: 30px !important;
+    padding-left: 30px !important;
+}
+
+.WeatherCal-section{
+    background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.7)),
+    url('https://source.unsplash.com/1600x900/?news');
+    /* background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.7)),
+    url('../img/newsBus.jpg') no-repeat 80% 80% !important; */
+    background-size: cover !important;
+    height: 500px;
+    padding-top: 50px !important;
+    justify-content: center;
+}
+
+.sc-section {
+    padding-top: 50px !important;
+    padding-bottom: 50px !important;
+}
+
+
+.btn-read {
+    color: white !important;
+    background-color: #193921 !important ;
+}
+
+
+.cardWeather {
+    background-color: #00000067;
+    color: white;
+    margin: 30px;
+    padding: 1em;
+    border-radius: 30px;
+    width: 300px;
+    border-style: none;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchBar {
+    border: none;
+    outline: none;
+    padding: 0.4em;
+    background: #8f84842b;
+    color: white;
+    font-size: 120%;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+.searchBar:hover {
+    background: #7c7c7c6b;
+}
+
+button {
+    margin: 0.5em;
+    border: none;
+    height: 2.3em ;
+    width: 2em;
+    background: #7c7c7c;
+    color: white;
+}
+
+
+
+.iconweather {
+    width: 70px;
+    height: 70px;
+}
+
+.weather.loading {
+    margin: 20px;
+    visibility: hidden;
+    max-height: 20px;
+    position: relative;
+}
+
+.weather.loading:after {
+    visibility: visible;
+    text-align: center;
+    content: "Loading...!";
+    color: white;
+    position: absolute;
+    font-size: 2rem;
+    top: 0;
+    left: 0;
+    margin-left: 40px;
+}
+/* .cc {
+    border-style: groove;
+} */
+
+.date-container{
+    font-weight: 100;
+    margin: 120px !important;
+
+}
+
+/* .date-container.loading {
+    margin: 20px;
+    visibility: hidden;
+    max-height: 20px;
+    position: relative;
+}
+
+.date-container.loading:after {
+    visibility: visible;
+    text-align: center;
+    content: "Loading...!";
+    color: white;
+    position: absolute;
+    font-size: 2rem;
+    top: 0;
+    left: 0;
+    margin-left: 40px;
+} */
+.date-container .time{
+    font-size: 90px;
+    color: white;
+}
+
+.date-container #am-pm{
+    font-size: 20px;
+    margin-left: 0px;
+}
+
+.date-container .date{
+    margin-top: 20px;
+    font-size: 30px;
+    color: white;
+}
+
+
+.row-search {
+    background-color: #00000067;
+}
+
+/* .coli {
+    margin-left: 10px !important;
+} */
+
+.imgnew {
+    height: 200px !important;
+}
+
+#output {
+    margin-left: 90px !important;
+}
+
+.city {
+    margin-top: 15px !important;
+}
+
+.select {
+    height: 50px !important;
+    border-radius: 10px !important;
+}
+option {
+    color: #193921 !important;
+    font-size: 17px;
+}
+
+#dff {
+    background-color: #193921;
+    width: 90px;
+    height: 40px;
+    border-radius: 10px;
+}
+#dff:hover {
+    background-color: #224e2d;
+    transition: ease-in-out 0.1s;
+}
