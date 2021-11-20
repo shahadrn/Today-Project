@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Today News</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="/img/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+
+</head>
+
+<body>
+    <!--Menu-->
+    <div class="ui large secondary inverted pointing fixedBar fixed menu">
+
+        <a class="toc item">
+            <i class="sidebar icon"></i>
+        </a>
+        <div class="sc-logo">TRY</div>
+        <div class="right item">
+            <a class="item" href="index.html">All</a>
+            <a class="item" href="general.html">General</a>
+            <a class="item" href="business.html">Business</a>
+            <a class="item" href="technology.html">Technology</a>
+            <a class="item" href="entertainment.html">Entertainment</a>
+            <a class="item" href="health.html">Health</a>
+            <a class="item" href="science.html">science</a>
+        </div>
+    </div>
+
+    <!--Weather & Time Section-->
+    <section class="WeatherCal-section">
+        <div class="ui equal width center aligned stakable padded grid">
+            <div class="row">
+                <div class="sixsteen wide mobile sixsteen wide tablet eight wide computer column cc">
+                    <div class="date-container">
+                        <div class="time" id="time">
+                             <span id="am-pm">pm</span>
+                        </div>
+                        <div class="date" id="date"></div>
+                    </div>
+                </div>
+
+                <div class="sixsteen wide mobile sixsteen wide tablet eight wide computer column cc">
+                    <div class="card cardWeather">
+                        <div class="search">
+                            <input type="text" class="searchBar" placeholder="Search">
+                            <button><i class="search link icon"></i></button>
+                        </div>
+                        <div class="weather loading">
+                            <h2 class="city">weather in Buraydah</h2>
+                            <h1 class="temp">16 °C</h1>
+                            <img src="https://www.weatherbit.io/static/img/icons/t05d.png" alt="" class="iconweather" />
+                            <div class="description">mostly clear</div>
+                            <div class="humidity">humidity</div>
+                            <div class="wind">14 km/h</div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <!--Search, dropdown Row and Cards fetch API row-->
+    <section id="contents" class="sc-section">
+        <div class="ui stakable grid container">
+            <div class="four column row">
+                <div class="right floated column">
+                    <div class="ui container" id="seachCountry">
+                        <span> <p>Choose the country do you want to read</p></span>
+                        <span>
+                                <div class="ui icon button" data-tooltip="us= United State,sa= Saudi arabia" data-position="top left" data-inverted="">
+                                    <i>!</i>
+                                </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="ui cards" id="output"> 
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+<script>
+    const apikey = 'https://newsapi.org/v2/top-headlines/sources?category=sports&apiKey=b23fd6aac9c44682abb9580dae85d23f';
+
+    async function getNews(){
+        const response = await fetch(apikey);
+        const data = await response.json();
+        // const prin = data.map(m => m.data.sources)
+        // const filter = data.sources.find(item => item.country === 'us' && 'gb');
+        console.log(data.sources)
+        // const uni = data.sources.reduce((map, obj) => map.set(obj.country, obj) , new Map());
+        // console.log(uni)
+        printCards(data)
+    }
+
+     function printCards(data) {
+         const header = document.querySelector('#seachCountry');
+             header.innerHTML += `
+                     <select class='ui fluid selection dropdown select' onchange="getCountry(this.value)">
+                     <option>select the country</option>
+                     ${data.sources.map( countryName => `<option>${countryName.country}</option>`)}
+                     </select>`
+                     // print all country name using map and dispaly it to user in dropdown WIHT deplicate country name
+                 }
+
+     async function getCountry(e){
+         if ( e !== 'select the country'){
+            // console.log(e)
+            //Another Fetch based on user choice
+            const response = await fetch(`${apikey}&country=${e}`)
+            const data = await response.json();
+            console.log(data.sources)
+
+
+            //It only shows the information of the country in which the user is interested
+            document.getElementById("output").innerHTML =  data.sources.map(countryName =>
+                `<div class="ui container card">
+                    <div class="content">
+                        <h4 class="header">${countryName.name}</h4>
+                    </div>
+                    <div class="content">
+                        <div class="desc">${countryName.description}</div>
+                    </div>  
+                    <div class="extra content">
+                        <span>
+                            <a href=${countryName.url} target="_blank" class="ui button btn">Read more</a>
+                        </span>
+                    </div>
+                    </div>`)
+         }
+    }
+    getNews()  
+
+</script>
+
+    
+
+      
+
+<script src="js/weather.js" defer></script>
+<script src="js/script.js"></script>
+</body>
+</html>
+
+
+<!-- ${data.sources.reduce((map, obj) => `<option>${data.map.set(obj.country, obj) , new Map()}</option>`)} -->
