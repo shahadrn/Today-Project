@@ -155,21 +155,22 @@ button {
 
 /* ------------------End Weather section-------------------------*/
 
-.search-section {
-    background-color: #19392131;
+
+.search-bar {
+    margin-top: 10px;
 }
 
-#search-bar{
-    margin: 5px !important;
-    width: 250px;
-    border-style: none !important; 
+#search-bar {
+    margin-top: 10px;
+    width: 300px !important;
 }
+
 
 
 /* --------Search, dropdown Row and Cards fetch API row---------*/
 
 .sc-section {
-    padding-top: 50px !important;
+    padding-top: 30px !important;
     padding-bottom: 50px !important;
 }
 

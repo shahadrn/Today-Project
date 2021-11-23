@@ -30,6 +30,8 @@
                 <a class="item" href="entertainment.html">Entertainment</a>
                 <a class="item" href="health.html">Health</a>
                 <a class="item" href="science.html">science</a>
+                <a class="item" href="try.html">sports</a>
+
             </div>
     </div>
 
@@ -66,13 +68,16 @@
             </div>
         </div>
     </section>
-
     <section class="search-section">
-        <div class="ui icon input ">
-        <input type="text" id="search-bar" placeholder="Search title or description ..." />
-        <i class="search link icon"></i>
+        <div class="ui five column centered grid">
+          <div class="column search-bar">
+            <div class="ui icon input ">
+              <input type="text" id="search-bar" placeholder="Search title or description ..." />
+              <i class="search link icon"></i>
+            </div>
+          </div>
         </div>
-    </section>
+      </section>
 
     <!--Search, dropdown Row and Cards fetch API row-->
     <section id="contents" class="sc-section">
@@ -107,7 +112,7 @@
         });
 
         const searchState =  async fetchNews => {
-            apiKey='b23fd6aac9c44682abb9580dae85d23f';
+            apiKey='8c06a7999aa843788ba579a121cc37d5';
             category='business';
             const res = await fetch(`https://newsapi.org/v2/top-headlines?category=${this.category}&apiKey=${this.apiKey}`);
             const data = await res.json();

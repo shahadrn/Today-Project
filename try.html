@@ -22,7 +22,7 @@
         <a class="toc item">
             <i class="sidebar icon"></i>
         </a>
-        <div class="sc-logo">TRY</div>
+        <div class="sc-logo">News</div>
         <div class="right item">
             <a class="item" href="index.html">All</a>
             <a class="item" href="general.html">General</a>
@@ -31,6 +31,8 @@
             <a class="item" href="entertainment.html">Entertainment</a>
             <a class="item" href="health.html">Health</a>
             <a class="item" href="science.html">science</a>
+            <a class="item active item" href="try.html">sports</a>
+
         </div>
     </div>
 
@@ -75,7 +77,6 @@
             <div class="four column row">
                 <div class="right floated column">
                     <div class="ui container" id="seachCountry">
-                        <span> <p>Choose the country do you want to read</p></span>
                         <span>
                                 <div class="ui icon button" data-tooltip="us= United State,sa= Saudi arabia" data-position="top left" data-inverted="">
                                     <i>!</i>
@@ -96,7 +97,7 @@
 
 
 <script>
-    const apikey = 'https://newsapi.org/v2/top-headlines/sources?category=sports&apiKey=b23fd6aac9c44682abb9580dae85d23f';
+    const apikey = 'https://newsapi.org/v2/top-headlines/sources?category=sports&apiKey=8c06a7999aa843788ba579a121cc37d5';
 
     async function getNews(){
         const response = await fetch(apikey);

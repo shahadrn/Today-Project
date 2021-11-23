@@ -30,6 +30,8 @@
       <a class="item" href="entertainment.html">Entertainment</a>
       <a class="item" href="health.html">Health</a>
       <a class="item" href="science.html">science</a>
+      <a class="item" href="try.html">sports</a>
+
     </div>
   </div>
 
@@ -72,9 +74,13 @@
 
   
   <section class="search-section">
-    <div class="ui icon input ">
-      <input type="text" id="search-bar" placeholder="Search title or description ..." />
-      <i class="search link icon"></i>
+    <div class="ui five column centered grid">
+      <div class="column search-bar">
+        <div class="ui icon input ">
+          <input type="text" id="search-bar" placeholder="Search title or description ..." />
+          <i class="search link icon"></i>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -115,7 +121,7 @@
     });
 
     const searchState =  async fetchNews => {
-        const res = await fetch('https://newsapi.org/v2/everything?q=all&pageSize=30&apiKey=b23fd6aac9c44682abb9580dae85d23f');
+        const res = await fetch('https://newsapi.org/v2/everything?q=all&pageSize=30&apiKey=8c06a7999aa843788ba579a121cc37d5');
         const data = await res.json();
         state = data.articles;
         outputhtml(state);
