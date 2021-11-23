@@ -22,6 +22,35 @@ setInterval(() => {
 
 
 
+    // var session = document.getElementById('am-pm');
+
+    // function display(){
+    // var time = new Date();
+    // var hour = time.getHours();
+    // var minutes = time.getMinutes();
+    // var sec = time.getSeconds();
+
+
+
+    // if(hour >=12 ){
+    //     session.innerHTML = 'PM';
+
+    // }else {
+    //     session.innerHTML = "AM";
+    // }
+    // if (hour > 12) {
+    //     hour = hour - 12;
+    // }
+
+    // document.getElementById('hr').innerHTML = hour;
+    // document.getElementById('min').innerHTML = minutes;
+    // document.getElementById('sec').innerHTML = sec;
+
+    // }
+
+    // setInterval(display , 10);
+    
+
 
 
 

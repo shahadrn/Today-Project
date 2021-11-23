@@ -8,7 +8,7 @@
     <title>Today News</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="/img/icon.png" type="image/x-icon">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/styleNews.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
@@ -35,7 +35,7 @@
     </div>
 
     <!--Weather & Time Section-->
-    <section class="WeatherCal-section">
+    <section class="WeatherCal-sports-section">
         <div class="ui equal width center aligned stakable padded grid">
             <div class="row">
                 <div class="sixsteen wide mobile sixsteen wide tablet eight wide computer column cc">
@@ -54,13 +54,13 @@
                             <button><i class="search link icon"></i></button>
                         </div>
                         <div class="weather loading">
-                            <h2 class="city">weather in Buraydah</h2>
+                            <h3 class="city">weather in Buraydah</h3>
                             <h1 class="temp">16 °C</h1>
-                            <img src="https://www.weatherbit.io/static/img/icons/t05d.png" alt="" class="iconweather" />
+                            <img src="https://www.weatherbit.io/static/img/icons/t05d.png" alt="" class="iconWeather" />
                             <div class="description">mostly clear</div>
                             <div class="humidity">humidity</div>
                             <div class="wind">14 km/h</div>
-                        </div>
+                          </div>
                     </div>
                 </div>
 
@@ -94,6 +94,7 @@
         </div>
     </section>
 
+
 <script>
     const apikey = 'https://newsapi.org/v2/top-headlines/sources?category=sports&apiKey=b23fd6aac9c44682abb9580dae85d23f';
 
@@ -103,23 +104,32 @@
         // const prin = data.map(m => m.data.sources)
         // const filter = data.sources.find(item => item.country === 'us' && 'gb');
         console.log(data.sources)
+        // const countries = data.sources.map(cn => cn.country);
+        // console.log(countries)
+        // const distinctCountries = countries.filter((country, index) => countries.indexOf(country) === index);
+        // console.log(distinctCountries);
         // const uni = data.sources.reduce((map, obj) => map.set(obj.country, obj) , new Map());
         // console.log(uni)
         printCards(data)
     }
 
-     function printCards(data) {
-         const header = document.querySelector('#seachCountry');
-             header.innerHTML += `
-                     <select class='ui fluid selection dropdown select' onchange="getCountry(this.value)">
-                     <option>select the country</option>
-                     ${data.sources.map( countryName => `<option>${countryName.country}</option>`)}
-                     </select>`
-                     // print all country name using map and dispaly it to user in dropdown WIHT deplicate country name
-                 }
+        function printCards(data) {
+        const header = document.querySelector('#seachCountry');
+        const countries = data.sources.map(countryName => countryName.country);
+        console.log(countries)
+        const distinctCountries = countries.filter((country, index) => countries.indexOf(country) === index);
+        console.log(distinctCountries)
+
+
+        header.innerHTML += `
+                        <select class='ui fluid selection dropdown select' onchange="getCountry(this.value)">
+                        <option>Select The Country</option>
+                        ${distinctCountries.map(country => `<option>${country}</option>`)}
+                        </select>`;
+        }
 
      async function getCountry(e){
-         if ( e !== 'select the country'){
+         if ( e !== 'Select The Country'){
             // console.log(e)
             //Another Fetch based on user choice
             const response = await fetch(`${apikey}&country=${e}`)
@@ -127,9 +137,11 @@
             console.log(data.sources)
 
 
+            
+
             //It only shows the information of the country in which the user is interested
             document.getElementById("output").innerHTML =  data.sources.map(countryName =>
-                `<div class="ui container card">
+                `<div class="ui fluid container card cardContainer">
                     <div class="content">
                         <h4 class="header">${countryName.name}</h4>
                     </div>
@@ -138,13 +150,15 @@
                     </div>  
                     <div class="extra content">
                         <span>
-                            <a href=${countryName.url} target="_blank" class="ui button btn">Read more</a>
+                            <a href=${countryName.url} target="_blank" class="ui button btn-read">Read more</a>
                         </span>
                     </div>
-                    </div>`)
+                    </div>`).join('');
          }
     }
-    getNews()  
+    getNews();
+
+    
 
 </script>
 

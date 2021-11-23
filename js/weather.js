@@ -10,9 +10,9 @@ let weather = {
     displayWeather : function(data) {
         const {city_name ,rh, wind_spd , temp} = data.data[0];
         const {description , icon} = data.data[0].weather;
-        console.log(city_name,rh,wind_spd,temp, icon,description);
+        console.log(city_name,rh,wind_spd,temp, icon, description);
         document.querySelector('.city').innerText = "Weather in " + city_name;
-        document.querySelector('.iconweather').src = "https://www.weatherbit.io/static/img/icons/"+ icon +".png";
+        document.querySelector('.iconWeather').src = "https://www.weatherbit.io/static/img/icons/"+ icon +".png";
         document.querySelector('.description').innerText = description;
         document.querySelector('.temp').innerText = temp + " °C";
         document.querySelector('.humidity').innerText = "Humidity: " + rh + " %";

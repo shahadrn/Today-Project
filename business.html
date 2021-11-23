@@ -8,7 +8,7 @@
     <title>Today News</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="/img/icon.png" type="image/x-icon">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/styleNews.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
@@ -54,67 +54,95 @@
                             <button><i class="search link icon"></i></button>
                         </div>
                         <div class="weather loading">
-                            <h2 class="city">weather in Buraydah</h2>
+                            <h3 class="city">weather in Buraydah</h3>
                             <h1 class="temp">16 °C</h1>
-                            <img src="https://www.weatherbit.io/static/img/icons/t05d.png" alt="" class="iconweather" />
+                            <img src="https://www.weatherbit.io/static/img/icons/t05d.png" alt="" class="iconWeather" />
                             <div class="description">mostly clear</div>
                             <div class="humidity">humidity</div>
                             <div class="wind">14 km/h</div>
-                        </div>
+                          </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <section class="search-section">
+        <div class="ui icon input ">
+        <input type="text" id="search-bar" placeholder="Search title or description ..." />
+        <i class="search link icon"></i>
         </div>
     </section>
 
     <!--Search, dropdown Row and Cards fetch API row-->
     <section id="contents" class="sc-section">
         <div class="ui stakable grid container">
-            <div class="four column row">
-                <div class="left floated column">
-                    <div class="ui icon input ">
-                        <input type="text" placeholder="Search..." spellcheck="false" data-ms-editor="true">
-                        <i class="circular search link icon"></i>
-                    </div>
-                </div>
-            </div>
             <div class="row">
                 <div class="ui cards" id="output"></div>
             </div>
         </div>
     </section>
-
+  
     <script>
-        const getNews = function () {
+            
+        const chardList = document.getElementById('output');
+        const search = document.getElementById('search-bar');
+        let state =[];
+
+        search.addEventListener('keyup' , (event) => {
+            //searchState(search.value));
+            const searchText = event.target.value.toLowerCase();
+            console.log(searchText);
+            
+
+            const filterText = state.filter(states => {
+                return (
+                    states.title.toLowerCase().includes(searchText) ||
+                    states.description.toLowerCase().includes(searchText)
+                );
+            });
+            console.log(filterText)
+            outputhtml(filterText);
+
+        });
+
+        const searchState =  async fetchNews => {
             apiKey='b23fd6aac9c44682abb9580dae85d23f';
             category='business';
-            const promise = fetch(`https://newsapi.org/v2/top-headlines?category=${this.category}&apiKey=${this.apiKey}`);
-            promise.then((response) => {
-                console.log(response)
-                if (!response.ok) {
-                    throw Error("Error");
-                    }
-                return response.json();
-                }).then(data => {
-                    console.log(data.articles);
-                    document.getElementById("output").innerHTML = data.articles.map(businessInfo =>
-                        `<div class="ui card">
-                        <div class="image">
-                                <img src=${businessInfo.urlToImage} class="imgnew"></div>
-                            <div class="content">
-                                <h5 class="header">${businessInfo.title}</h5>
-                                    <div class="description">${businessInfo.description}</div>
-                            </div>
-                            <div class="extra content">
-                                <span>
-                                    <a href=${businessInfo.url} target="_blank" class="ui button btn-read">Read more</a>
-                                </span>
-                            </div>                        
-                        </div>`)
-                    }).catch(error => {
-                    console.log(error);
-                    });
-        }();
+            const res = await fetch(`https://newsapi.org/v2/top-headlines?category=${this.category}&apiKey=${this.apiKey}`);
+            const data = await res.json();
+            state = data.articles;
+            outputhtml(state);
+
+        };
+
+        const outputhtml = matches => {
+                const html = matches.map(match =>
+                `<div class="ui fluid container card cardContainer">
+                <div class="image">
+                    <img src=${match.urlToImage} class="imgnew">
+                </div>
+                    <div class="content">
+                    <h5 class="header">${match.title}</h5>
+                    <div class="description">${match.description}</div>
+                    </div>
+                    <div class="extra content">
+                    <span>
+                        <a href=${match.url} target="_blank" class="ui button btn-read">Read more</a>
+                    </span>
+                    </div>                        
+                </div>`
+                ).join('');
+
+                chardList.innerHTML = html;
+            
+        };
+
+        searchState();
+
+
+
+
     </script>
 
     <script src="js/weather.js" defer></script>

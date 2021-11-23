@@ -21,7 +21,7 @@
     <a class="toc item">
       <i class="sidebar icon"></i>
     </a>
-    <div class="sc-logo">News</div>
+    <div class="sc-logo">NewsAll</div>
     <div class="right item">
       <a class="item active item" href="index.html">All</a>
       <a class="item" href="general.html">General</a>
@@ -32,6 +32,7 @@
       <a class="item" href="science.html">science</a>
     </div>
   </div>
+
 
   <!--Weather & Time Section-->
   <section class="WeatherCal-section">
@@ -70,7 +71,6 @@
     </div>
   </section>
 
-  
   <section class="search-section">
     <div class="ui icon input ">
       <input type="text" id="search-bar" placeholder="Search title or description ..." />
@@ -78,53 +78,98 @@
     </div>
   </section>
 
-  <!--Search, dropdown Row and Cards fetch API row-->
-  <section id="contents" class="sc-section container">
-    <div class="ui stakable grid container">
-      <div class="row">
-        <div class="ui cards" id="output">
+
+    <!--Search, dropdown Row and Cards fetch API row-->
+    <section id="contents" class="sc-section container">
+        <div class="ui stakable grid container">
+          <div class="row">
+            <div class="ui cards" id="output">
+            </div>
+          </div>
+          <button id="dff" onclick="getNews()">Load More</button>
         </div>
-      </div>
-      <button id="dff" onclick="getNews()">Load More</button>
-    </div>
-
-  </section>
-
-
-  <script>
+      </section>
+      <script>
+        
+        const chardList = document.getElementById('output');
+        const search = document.getElementById('search-bar');
+        let state =[];
+    
+        search.addEventListener('keyup' , (event) => {
+             //searchState(search.value));
+             const searchText = event.target.value.toLowerCase();
+             console.log(searchText);
+             
+    
+             const filterText = state.filter(states => {
+                 return (
+                    states.title.toLowerCase().includes(searchText) ||
+                    states.description.toLowerCase().includes(searchText)
+                 );
+             });
+             console.log(filterText)
+             outputhtml(filterText);
+    
+        });
+    
+        const searchState =  async fetchNews => {
+            const res = await fetch('https://newsapi.org/v2/everything?q=all&pageSize=30&apiKey=b23fd6aac9c44682abb9580dae85d23f');
+            const data = await res.json();
+            state = data.articles;
+            outputhtml(state);
+    
+        };
+    
+        const outputhtml = matches => {
+                const html = matches.map(match =>
+                `<div class="ui fluid container card cardContainer">
+                   <div class="image">
+                      <img src=${match.urlToImage} class="imgnew">
+                   </div>
+                    <div class="content">
+                      <h5 class="header">${match.title}</h5>
+                      <div class="description">${match.description}</div>
+                    </div>
+                    <div class="extra content">
+                      <span>
+                        <a href=${match.url} target="_blank" class="ui button btn-read">Read more</a>
+                      </span>
+                    </div>                        
+                </div>`
+                ).join('');
+    
+                chardList.innerHTML = html;
+            
+        };
+    
+        searchState();
+    
+    
+    
+    
+      </script>
+<!-- <script>
         
     const chardList = document.getElementById('output');
     const search = document.getElementById('search-bar');
-    let state =[];
 
-    search.addEventListener('keyup' , (event) => {
-         //searchState(search.value));
-         const searchText = event.target.value.toLowerCase();
-         console.log(searchText);
-         
-
-         const filterText = state.filter(states => {
-             return (
-                states.title.toLowerCase().includes(searchText) ||
-                states.description.toLowerCase().includes(searchText)
-             );
-         });
-         console.log(filterText)
-         outputhtml(filterText);
-
-    });
-
-    const searchState =  async fetchNews => {
-        const res = await fetch('https://newsapi.org/v2/everything?q=all&pageSize=30&apiKey=b23fd6aac9c44682abb9580dae85d23f');
+    const searchState =  async searchText => {
+        const res = await fetch('https://newsapi.org/v2/everything?q=all&apiKey=b23fd6aac9c44682abb9580dae85d23f');
         const data = await res.json();
-        state = data.articles;
+        const state = data.articles;
         outputhtml(state);
+        let matches = state.filter(states => {
+            const reg = new RegExp(`^${searchText}`, 'gi');
+            return states.title.match(reg) || states.description.match(reg);
+        });
+        outputhtml(matches);
 
     };
 
     const outputhtml = matches => {
+        if (matches.length > 0 ) {
             const html = matches.map(match =>
-            `<div class="ui fluid container card cardContainer">
+            `<div class="ui card cardContainer">
                <div class="image">
                   <img src=${match.urlToImage} class="imgnew">
                </div>
@@ -141,15 +186,16 @@
             ).join('');
 
             chardList.innerHTML = html;
-        
+        }
     };
 
-    searchState();
+    search.addEventListener('input' , () => 
+        searchState(search.value));
+
+        searchState();
 
 
-
-
-  </script>
+  </script> -->
   <script src="js/weather.js" defer></script>
   <script src="js/script.js"></script>
 </body>
